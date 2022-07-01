@@ -15,17 +15,26 @@ const schema = yup
   .object({
     players: yup.array().of(
       yup.object().shape({
-        name: yup.string().required(),
+        name: yup
+          .string()
+          .required("Please enter the player's first and last name"),
         aav: yup
           .number()
+          .typeError(
+            "Please enter a number without any commas or special characters"
+          )
+          .required("Please enter a value between 1 and 3")
           .min(500000, "The minimum contract AAV is $500,000")
-          .max(12500000, "This maximum contract AAV is $12,500,000")
-          .required(),
+          .max(12500000, "This maximum contract AAV is $12,500,000"),
+
         years: yup
           .number()
+          .typeError(
+            "Please enter a number without any commas or special characters"
+          )
+          .required()
           .min(1, "The minimum contract length is 1 year.")
           .max(3, "This maximum contract length is 3 years.")
-          .required()
       })
     )
   })
@@ -48,7 +57,7 @@ export default function App() {
   } = useForm<Inputs>({
     resolver: yupResolver(schema),
     defaultValues: {
-      players: [{ name: "", aav: 0, years: 1 }]
+      players: [{ name: "", aav: 0, years: 0 }]
     }
   });
 
@@ -75,7 +84,7 @@ export default function App() {
                 {...register(`players.${index}.name`)}
               />
               {errors?.players?.[index]?.name && (
-                <span>This field is required</span>
+                <span>{errors?.players?.[index]?.name?.message}</span>
               )}
             </div>
           </div>
@@ -92,7 +101,7 @@ export default function App() {
                 {...register(`players.${index}.aav`)}
               />
               {errors?.players?.[index]?.aav && (
-                <span>This field is required</span>
+                <span>{errors.players[index].aav.message}</span>
               )}
             </div>
             <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
@@ -106,7 +115,7 @@ export default function App() {
                 {...register(`players.${index}.years`)}
               />
               {errors?.players?.[index]?.years && (
-                <span>This field is required</span>
+                <span>{errors.players[index].years.message}</span>
               )}
             </div>
             {fields.length > 1 && (
