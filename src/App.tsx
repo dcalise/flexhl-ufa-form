@@ -233,7 +233,6 @@ export default function App() {
                             onBlur={onBlur}
                             className={`${inputClass} pl-6`}
                             placeholder="500,000"
-                            value={value}
                             options={{
                               numeral: true,
                               numeralThousandsGroupStyle: "thousand"
@@ -304,7 +303,6 @@ export default function App() {
                 options={{
                   numeral: true,
                   prefix: "$",
-                  signBeforePrefix: true,
                   numeralThousandsGroupStyle: "thousand"
                 }}
               />
