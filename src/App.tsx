@@ -1,5 +1,10 @@
-import Cleave from "cleave.js/dist/cleave-react";
-import { useForm, SubmitHandler, useFieldArray } from "react-hook-form";
+import Cleave from "cleave.js/react";
+import {
+  useForm,
+  SubmitHandler,
+  useFieldArray,
+  Controller
+} from "react-hook-form";
 import {
   inputClass,
   labelClass,
@@ -7,7 +12,6 @@ import {
   secondaryButtonClass
 } from "./styles";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Salary } from "./Salary";
 import { batch } from "./batch";
 
 import { schema } from "./schema";
@@ -59,6 +63,8 @@ export default function App() {
 
   const [salaryTotal, setSalaryTotal] = useState(0);
   const players = watch("players");
+
+  // eslint-disable-next-line
   useEffect(() => {
     let total = 0;
     players.forEach((player) => {
@@ -201,11 +207,36 @@ export default function App() {
                     AAV
                   </label>
 
-                  <Salary
+                  <Controller
                     control={control}
                     {...register(`players.${index}.aav`)}
+                    render={({ field: { onChange, onBlur, value } }) => {
+                      const handleChange = (e) => {
+                        onChange(e.target.rawValue);
+                      };
+                      return (
+                        <div className="mt-1 relative rounded-md shadow-sm">
+                          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <span className="text-gray-500 sm:text-sm">
+                              {" "}
+                              ${" "}
+                            </span>
+                          </div>
+                          <Cleave
+                            onChange={handleChange}
+                            onBlur={onBlur}
+                            className={`${inputClass} pl-6`}
+                            placeholder="500,000"
+                            value={value}
+                            options={{
+                              numeral: true,
+                              numeralThousandsGroupStyle: "thousand"
+                            }}
+                          />
+                        </div>
+                      );
+                    }}
                   />
-
                   {errors?.players?.[index]?.aav && (
                     <span className="text-red-700">
                       {errors?.players?.[index]?.aav?.message}
