@@ -17,9 +17,13 @@ import { batch } from "./batch";
 import { schema } from "./schema";
 import { Inputs } from "./types";
 import { supabase } from "./supabaseClient";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FiChevronDown } from "react-icons/fi";
 import { PostgrestError } from "@supabase/supabase-js";
+
+interface ChangeEvent<T> extends React.ChangeEvent<T> {
+  target: { rawValue: string } & EventTarget & T;
+}
 
 export default function App() {
   const [appState, setAppState] = useState("new");
@@ -211,8 +215,10 @@ export default function App() {
                     control={control}
                     {...register(`players.${index}.aav`)}
                     render={({ field: { onChange, onBlur, value } }) => {
-                      const handleChange = (e) => {
-                        onChange(e.target.rawValue);
+                      const handleChange = (
+                        event: ChangeEvent<HTMLInputElement>
+                      ) => {
+                        onChange(event.target.rawValue);
                       };
                       return (
                         <div className="mt-1 relative rounded-md shadow-sm">
