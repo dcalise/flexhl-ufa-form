@@ -11,14 +11,14 @@ export const schema = yup
         name: yup.string().required("Select a player"),
         aav: yup
           .number()
-          .typeError("Enter the contact AAV")
+          .typeError("Enter the contract AAV")
           .required()
           .min(500000, "The minimum contract AAV is $500,000")
           .max(12000000, "This maximum contract AAV is $12,500,000"),
 
         years: yup
           .number()
-          .typeError("Enter a number between 1 and 3")
+          .typeError("Select a contract length")
           .required()
           .min(1, "The minimum contract length is 1 year.")
           .max(3, "This maximum contract length is 3 years.")
