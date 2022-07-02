@@ -1,20 +1,18 @@
-import {
-  useForm,
-  SubmitHandler,
-  Controller,
-  useFieldArray
-} from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
 import Cleave from "cleave.js/dist/cleave-react";
+import { useForm, SubmitHandler, useFieldArray } from "react-hook-form";
+import {
+  inputClass,
+  labelClass,
+  primaryButtonClass,
+  secondaryButtonClass
+} from "./styles";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { Salary } from "./Salary";
+
 import { schema } from "./schema";
 import { Inputs } from "./types";
 import { supabase } from "./supabaseClient";
 import { useEffect, useState } from "react";
-
-const labelClass = `block text-gray-700 text-sm font-bold mb-2`;
-const inputClass = `shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`;
-const primaryButtonClass = `flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded`;
-const secondaryButtonClass = `flex-shrink-0 border-transparent border-4 text-teal-500 hover:text-teal-800 text-sm py-1 px-2 rounded`;
 
 export default function App() {
   const {
@@ -55,17 +53,17 @@ export default function App() {
   };
 
   const [salaryTotal, setSalaryTotal] = useState(0);
-  // const players = watch("players");
-  // console.log(players);
-  // useEffect(() => {
-  //   let total = 0;
-  //   players.forEach((player) => {
-  //     console.log(typeof player.aav);
-  //     total = total + (player.aav || 0);
-  //   });
+  const players = watch("players");
+  console.log(players);
+  useEffect(() => {
+    let total = 0;
+    players.forEach((player) => {
+      const aav = player.aav ? parseInt(player.aav, 10) : 0;
+      total = total + (aav || 0);
+    });
 
-  //   setSalaryTotal(total);
-  // }, [players]);
+    setSalaryTotal(total);
+  });
 
   return (
     <div>
@@ -84,7 +82,6 @@ export default function App() {
                 Name
               </label>
               <input id="name" className={inputClass} {...register(`gm`)} />
-
               {errors?.gm && (
                 <span className="text-red-700">{errors?.gm?.message}</span>
               )}
@@ -171,12 +168,12 @@ export default function App() {
                 <label htmlFor="name" className={labelClass}>
                   AAV
                 </label>
-                <input
-                  id="aav"
-                  key={field.id}
-                  className={inputClass}
+
+                <Salary
+                  control={control}
                   {...register(`players.${index}.aav`)}
                 />
+
                 {errors?.players?.[index]?.aav && (
                   <span className="text-red-700">
                     {errors?.players?.[index]?.aav?.message}
@@ -191,6 +188,7 @@ export default function App() {
                   id="years"
                   key={field.id}
                   className={inputClass}
+                  placeholder="1 - 3 years"
                   {...register(`players.${index}.years`)}
                 />
                 {errors?.players?.[index]?.years && (
@@ -213,7 +211,18 @@ export default function App() {
         ))}
 
         <div className="p-4">
-          <div className="mb-2">Total salary: {salaryTotal}</div>
+          <div className="mb-2">
+            Total salary:{" "}
+            <Cleave
+              value={salaryTotal}
+              options={{
+                numeral: true,
+                prefix: "$",
+                signBeforePrefix: true,
+                numeralThousandsGroupStyle: "thousand"
+              }}
+            />
+          </div>
 
           <button
             type="button"

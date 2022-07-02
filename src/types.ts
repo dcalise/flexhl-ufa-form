@@ -3,7 +3,7 @@ type Inputs = {
   team: string;
   players: {
     name: string;
-    aav: number | null;
+    aav: string | null;
     years: number | null;
   }[];
 };
