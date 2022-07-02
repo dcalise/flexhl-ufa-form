@@ -1,4 +1,4 @@
-type Inputs = {
+export type Inputs = {
   gm: string;
   team: string;
   players: {
@@ -7,5 +7,3 @@ type Inputs = {
     years: number | null;
   }[];
 };
-
-export { Inputs };
