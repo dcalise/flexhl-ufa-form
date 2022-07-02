@@ -50,7 +50,7 @@ export default function App() {
     const payload = formData.players.map((player) => ({
       gm: formData.gm,
       team: formData.team,
-      playerrName: player.name,
+      playerName: player.name,
       aav: player.aav,
       years: player.years
     }));
