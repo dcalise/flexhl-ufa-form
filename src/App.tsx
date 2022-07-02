@@ -214,7 +214,7 @@ export default function App() {
                   <Controller
                     control={control}
                     {...register(`players.${index}.aav`)}
-                    render={({ field: { onChange, onBlur, value } }) => {
+                    render={({ field: { onChange, onBlur } }) => {
                       const handleChange = (
                         event: ChangeEvent<HTMLInputElement>
                       ) => {
