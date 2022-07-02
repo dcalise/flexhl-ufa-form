@@ -51,8 +51,8 @@ export default function App() {
       gm: formData.gm,
       team: formData.team,
       playerName: player.name,
-      aav: player.aav,
-      years: player.years
+      aav: player.aav ? parseInt(player.aav, 10) : 0,
+      years: player.years ? parseInt(player.years, 10) : 0
     }));
 
     const { data, error } = await supabase.from("ufax2022").insert(payload);
@@ -235,6 +235,8 @@ export default function App() {
                             placeholder="500,000"
                             options={{
                               numeral: true,
+                              numeralDecimalScale: 0,
+                              numeralPositiveOnly: true,
                               numeralThousandsGroupStyle: "thousand"
                             }}
                           />
@@ -250,15 +252,29 @@ export default function App() {
                 </div>
                 <div className="w-full md:w-1/2 px-3 mb-2 md:mb-0">
                   <label htmlFor="years" className={labelClass}>
-                    Years
+                    Contract Length
                   </label>
-                  <input
-                    id="years"
-                    key={field.id}
-                    className={inputClass}
-                    placeholder="1 - 3 years"
-                    {...register(`players.${index}.years`)}
-                  />
+                  <div className="mt-1 relative rounded-md shadow-sm">
+                    <select
+                      id="years"
+                      key={field.id}
+                      className={inputClass}
+                      placeholder="1 - 3 years"
+                      {...register(`players.${index}.years`)}
+                    >
+                      <option value="" disabled>
+                        1 - 3 years
+                      </option>
+                      <option value="1">1 year</option>
+                      <option value="2">2 years</option>
+                      <option value="3">3 years</option>
+                    </select>
+                    <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
+                      <span className="text-gray-500 sm:text-sm">
+                        <FiChevronDown className="text-xl" />
+                      </span>
+                    </div>
+                  </div>
                   {errors?.players?.[index]?.years && (
                     <span className="text-red-700">
                       {errors?.players?.[index]?.years?.message}

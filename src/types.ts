@@ -4,6 +4,6 @@ export type Inputs = {
   players: {
     name: string;
     aav: string | null;
-    years: number | null;
+    years: string | null;
   }[];
 };
