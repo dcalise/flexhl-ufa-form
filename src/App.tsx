@@ -38,7 +38,7 @@ export default function App() {
     resolver: yupResolver(schema),
     defaultValues: {
       team: "",
-      players: [{ name: "", aav: null, years: null }]
+      players: [{ name: "", aav: "0M", years: null }]
     }
   });
 
@@ -51,8 +51,8 @@ export default function App() {
       gm: formData.gm,
       team: formData.team,
       playerName: player.name,
-      aav: player.aav ? parseInt(player.aav, 10) : 0,
-      years: player.years ? parseInt(player.years, 10) : 0
+      aav: player.aav ? parseFloat(player.aav) : 0,
+      years: player.years ? parseFloat(player.years) : 0
     }));
 
     const { data, error } = await supabase.from("ufax2022").insert(payload);
@@ -72,7 +72,7 @@ export default function App() {
   useEffect(() => {
     let total = 0;
     players.forEach((player) => {
-      const aav = player.aav ? parseInt(player.aav, 10) : 0;
+      const aav = player.aav ? parseFloat(player.aav) : 0;
       total = total + (aav || 0);
     });
 
@@ -89,6 +89,34 @@ export default function App() {
           <div className="p-4">
             <h1 className="text-3xl">Flex Hockey League</h1>
             <h2 className="text-xl">UFAX Batch 1</h2>
+            <p className="text-lg mt-4">
+              Welcome to the annual UFA Extravaganza! You may use the form below
+              to bid on as many players as you'd like, however,{" "}
+              <strong>
+                you must have the available cap space to sign all players that
+                you bid on.
+              </strong>
+            </p>
+
+            <p className="text-lg my-4">
+              You can select from the players in the dropdown. These are the
+              players available in the current batch. There will be several
+              batches. Find more info in Discord.
+            </p>
+
+            <p className="text-lg my-4">
+              Contracts must range between $500,000 and $12,000,000 and can be a
+              maximum of 3 years long. The AAV will be formatted in millions
+              with a maximum of two decimal places. For example,{" "}
+              <strong>$7.25M is $7,250,000.</strong>
+            </p>
+
+            <p className="text-lg my-4">
+              Tie Breaker: If the highest bid is tied, the{" "}
+              <strong>longer</strong> contract will win. If the length is the
+              same, the team with waiver priority (lowest in standings) will win
+              the player.
+            </p>
           </div>
           <div className="p-4">
             <div className="flex flex-wrap -mx-3 mb-2">
@@ -96,6 +124,10 @@ export default function App() {
                 <label htmlFor="name" className={labelClass}>
                   Name
                 </label>
+                <div className="text-gray-500 mb-4 -mt-2">
+                  Use the name we know you by. If you are bidding for another
+                  team, you can still put your name.
+                </div>
                 <input id="name" className={inputClass} {...register(`gm`)} />
                 {errors?.gm && (
                   <span className="text-red-700">{errors?.gm?.message}</span>
@@ -218,26 +250,23 @@ export default function App() {
                       const handleChange = (
                         event: ChangeEvent<HTMLInputElement>
                       ) => {
-                        onChange(event.target.rawValue);
+                        onChange(event.target.rawValue.replace("M", ""));
                       };
                       return (
                         <div className="mt-1 relative rounded-md shadow-sm">
                           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <span className="text-gray-500 sm:text-sm">
-                              {" "}
-                              ${" "}
-                            </span>
+                            <span className="text-gray-500 sm:text-sm">$</span>
                           </div>
                           <Cleave
                             onChange={handleChange}
                             onBlur={onBlur}
                             className={`${inputClass} pl-6`}
-                            placeholder="500,000"
+                            placeholder="0.50M"
                             options={{
                               numeral: true,
-                              numeralDecimalScale: 0,
-                              numeralPositiveOnly: true,
-                              numeralThousandsGroupStyle: "thousand"
+                              prefix: "M",
+                              tailPrefix: true,
+                              numeralPositiveOnly: true
                             }}
                           />
                         </div>
@@ -312,16 +341,8 @@ export default function App() {
 
           <div className="p-4">
             <div className="mb-2 text-lg text-center">
-              <div className="text-green-800 font-bold">Total salary:</div>
-              <Cleave
-                value={salaryTotal}
-                className="text-center text-green-800"
-                options={{
-                  numeral: true,
-                  prefix: "$",
-                  numeralThousandsGroupStyle: "thousand"
-                }}
-              />
+              <div className="text-green-800 font-bold">Total salary:</div>$
+              {salaryTotal}M
             </div>
 
             {appState === "failed" ? (
