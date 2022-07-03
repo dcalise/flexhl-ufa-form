@@ -38,7 +38,7 @@ export default function App() {
     resolver: yupResolver(schema),
     defaultValues: {
       team: "",
-      players: [{ name: "", aav: "0M", years: null }]
+      players: [{ name: "", aav: "0", years: null }]
     }
   });
 
@@ -330,7 +330,7 @@ export default function App() {
               onClick={() =>
                 append({
                   name: "",
-                  aav: null,
+                  aav: "0",
                   years: null
                 })
               }
