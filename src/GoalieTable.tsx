@@ -28,7 +28,7 @@ export const GoalieTable = () => {
           </thead>
           <tbody>
             {goalieList.map((goalie) => (
-              <tr>
+              <tr key={goalie.name}>
                 <td className={tdClasses}>
                   <p className={pClasses}>{goalie.name}</p>
                 </td>

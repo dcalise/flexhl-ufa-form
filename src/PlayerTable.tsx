@@ -31,7 +31,7 @@ export const PlayerTable = () => {
           </thead>
           <tbody>
             {playerList.map((player) => (
-              <tr>
+              <tr key={player.name}>
                 <td className={tdClasses}>
                   <p className={pClasses}>{player.name}</p>
                 </td>

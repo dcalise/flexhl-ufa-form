@@ -4,18 +4,19 @@ import {
   useForm,
   SubmitHandler,
   useFieldArray,
-  Controller,
+  Controller
 } from "react-hook-form";
 import {
   inputClass,
   labelClass,
   primaryButtonClass,
-  secondaryButtonClass,
+  secondaryButtonClass
 } from "./styles";
 
 import { PostgrestError } from "@supabase/supabase-js";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { batch } from "./batch";
+import { playerList } from "./data/batch1-player-table";
+import { goalieList } from "./data/batch1-goalie-table";
 
 import { schema } from "./schema";
 import { Inputs } from "./types";
@@ -37,18 +38,18 @@ export const Form = ({ appState, setAppState }: FormProps) => {
     control,
     handleSubmit,
     watch,
-    formState: { errors },
+    formState: { errors }
   } = useForm<Inputs>({
     resolver: yupResolver(schema),
     defaultValues: {
       team: "",
-      players: [{ name: "", aav: "0", years: null }],
-    },
+      players: [{ name: "", aav: "0", years: null }]
+    }
   });
 
   const { fields, append, remove } = useFieldArray({
     control,
-    name: "players",
+    name: "players"
   });
   const [appErrors, setAppErrors] = useState<PostgrestError | null>(null);
   const onSubmit: SubmitHandler<Inputs> = async (formData) => {
@@ -57,7 +58,7 @@ export const Form = ({ appState, setAppState }: FormProps) => {
       team: formData.team,
       playerName: player.name,
       aav: player.aav ? parseFloat(player.aav) : 0,
-      years: player.years ? parseFloat(player.years) : 0,
+      years: player.years ? parseFloat(player.years) : 0
     }));
 
     const { data, error } = await supabase.from("ufax2022").insert(payload);
@@ -194,7 +195,7 @@ export const Form = ({ appState, setAppState }: FormProps) => {
         </div>
       </div>
       {fields.map((field, index) => (
-        <div className="p-4">
+        <div key={field.id} className="p-4">
           <div className="flex flex-wrap -mx-3 mb-2">
             <div className="w-full px-3">
               <label htmlFor="name" className={labelClass}>
@@ -203,17 +204,23 @@ export const Form = ({ appState, setAppState }: FormProps) => {
               <div className="mt-1 relative rounded-md shadow-sm">
                 <select
                   id="name"
-                  key={field.id}
                   className={inputClass}
                   {...register(`players.${index}.name`)}
                 >
                   <option value="" disabled>
                     Select a player
                   </option>
-                  {batch.map((player) => (
+                  {playerList.map((player) => (
+                    <option key={player.name} value={player.name}>{`${
+                      player.D ? "D" : "F"
+                    } ${player.name} ${player.OV}ov`}</option>
+                  ))}
+
+                  {goalieList.map((player) => (
                     <option
+                      key={player.name}
                       value={player.name}
-                    >{`${player.pos} ${player.name} ${player.ov}ov`}</option>
+                    >{`G ${player.name} ${player.OV}ov`}</option>
                   ))}
                 </select>
                 <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
@@ -259,7 +266,7 @@ export const Form = ({ appState, setAppState }: FormProps) => {
                           numeral: true,
                           prefix: "M",
                           tailPrefix: true,
-                          numeralPositiveOnly: true,
+                          numeralPositiveOnly: true
                         }}
                       />
                     </div>
@@ -324,7 +331,7 @@ export const Form = ({ appState, setAppState }: FormProps) => {
             append({
               name: "",
               aav: "0",
-              years: null,
+              years: null
             })
           }
         >
