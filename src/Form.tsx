@@ -4,24 +4,25 @@ import {
   useForm,
   SubmitHandler,
   useFieldArray,
-  Controller
+  Controller,
 } from "react-hook-form";
 import {
   inputClass,
   labelClass,
   primaryButtonClass,
-  secondaryButtonClass
+  secondaryButtonClass,
 } from "./styles";
 
 import { PostgrestError } from "@supabase/supabase-js";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { playerList } from "./data/batch1-player-table";
-import { goalieList } from "./data/batch1-goalie-table";
+import { playerList } from "./data/batch2-player-table";
+import { goalieList } from "./data/batch2-goalie-table";
 
 import { schema } from "./schema";
 import { Inputs } from "./types";
 import { supabase } from "./supabaseClient";
 import { FiChevronDown } from "react-icons/fi";
+import { Instructions } from "./components/Instructions";
 
 interface ChangeEvent<T> extends React.ChangeEvent<T> {
   target: { rawValue: string } & EventTarget & T;
@@ -38,18 +39,18 @@ export const Form = ({ appState, setAppState }: FormProps) => {
     control,
     handleSubmit,
     watch,
-    formState: { errors }
+    formState: { errors },
   } = useForm<Inputs>({
     resolver: yupResolver(schema),
     defaultValues: {
       team: "",
-      players: [{ name: "", aav: "0", years: null }]
-    }
+      players: [{ name: "", aav: "0", years: null }],
+    },
   });
 
   const { fields, append, remove } = useFieldArray({
     control,
-    name: "players"
+    name: "players",
   });
   const [appErrors, setAppErrors] = useState<PostgrestError | null>(null);
   const onSubmit: SubmitHandler<Inputs> = async (formData) => {
@@ -58,7 +59,7 @@ export const Form = ({ appState, setAppState }: FormProps) => {
       team: formData.team,
       playerName: player.name,
       aav: player.aav ? parseFloat(player.aav) : 0,
-      years: player.years ? parseFloat(player.years) : 0
+      years: player.years ? parseFloat(player.years) : 0,
     }));
 
     const { data, error } = await supabase.from("ufax2022").insert(payload);
@@ -87,35 +88,7 @@ export const Form = ({ appState, setAppState }: FormProps) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="px-4">
-        <p className="text-lg">
-          Welcome to the annual UFA Extravaganza! You may use the form below to
-          bid on as many players as you'd like, however,{" "}
-          <strong>
-            you must have the available cap space to sign all players that you
-            bid on.
-          </strong>
-        </p>
-
-        <p className="text-lg my-4">
-          You can select from the players in the dropdown. These are the players
-          available in the current batch. There will be several batches. Find
-          more info in Discord.
-        </p>
-
-        <p className="text-lg my-4">
-          Contracts must range between $500,000 and $12,000,000 and can be a
-          maximum of 3 years long. The AAV will be formatted in millions with a
-          maximum of two decimal places. For example,{" "}
-          <strong>$7.25M is $7,250,000.</strong>
-        </p>
-
-        <p className="text-lg my-4">
-          Tie Breaker: If the highest bid is tied, the <strong>longer</strong>{" "}
-          contract will win. If the length is the same, the team with waiver
-          priority (lowest in standings) will win the player.
-        </p>
-      </div>
+      <Instructions />
       <div className="p-4">
         <div className="flex flex-wrap -mx-3 mb-2">
           <div className="w-full px-3">
@@ -266,7 +239,7 @@ export const Form = ({ appState, setAppState }: FormProps) => {
                           numeral: true,
                           prefix: "M",
                           tailPrefix: true,
-                          numeralPositiveOnly: true
+                          numeralPositiveOnly: true,
                         }}
                       />
                     </div>
@@ -331,7 +304,7 @@ export const Form = ({ appState, setAppState }: FormProps) => {
             append({
               name: "",
               aav: "0",
-              years: null
+              years: null,
             })
           }
         >
