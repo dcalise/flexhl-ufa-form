@@ -31,6 +31,9 @@ export default function App() {
         <br />
         <GoalieTable />
       </div>
+      <div className="col-span-12 py-4 text-gray-400 text-right text-xs">
+        v{process.env.REACT_APP_VERSION}
+      </div>
     </div>
   );
 }
