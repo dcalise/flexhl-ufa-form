@@ -20,6 +20,7 @@ import { goalieList } from "./data/batch5-goalie-table";
 
 import { schema } from "./schema";
 import { Inputs } from "./types";
+import { Modal } from "./components/Modal";
 import { supabase } from "./supabaseClient";
 import { FiChevronDown } from "react-icons/fi";
 import { Instructions } from "./components/Instructions";
@@ -39,6 +40,7 @@ export const Form = ({ appState, setAppState }: FormProps) => {
     control,
     handleSubmit,
     watch,
+    trigger,
     formState: { errors },
   } = useForm<Inputs>({
     resolver: yupResolver(schema),
@@ -69,6 +71,7 @@ export const Form = ({ appState, setAppState }: FormProps) => {
     }
     if (data) {
       setAppState("success");
+      window.scrollTo(0, 0);
     }
   };
 
@@ -332,7 +335,36 @@ export const Form = ({ appState, setAppState }: FormProps) => {
           </div>
         ) : (
           <div className="p-4 text-center">
-            <input className={primaryButtonClass} type="submit" />
+            <Modal
+              buttonClasses={primaryButtonClass}
+              validate={trigger}
+              buttonText="Submit"
+            >
+              <h3 className="text-xl text-gray-800">Bid Summary</h3>
+              <p className="mb-1">
+                Please review your available cap space and your bids before
+                submitting.
+              </p>
+
+              <table className="w-3/4 mx-auto text-sm text-left my-6">
+                <tbody>
+                  {players.map(({ name, aav, years }) => (
+                    <tr className="bg-white">
+                      <td className="py-1 px-6">{name}</td>
+                      <td className="py-1 px-6 text-right">
+                        ${aav}M/{years}y
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+
+              <div className="mb-2 text-lg text-center">
+                <div className="text-green-800 font-bold">Total salary:</div>$
+                {salaryTotal}M
+              </div>
+              <input className={primaryButtonClass} type="submit" />
+            </Modal>
           </div>
         )}
       </div>
