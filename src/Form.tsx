@@ -147,7 +147,7 @@ export const Form = ({ appState, setAppState }: FormProps) => {
                 <option value="CHI">Chicago Blackhawks</option>
                 <option value="COL">Colorado Avalanche</option>
                 <option value="DAL">Dallas Stars</option>
-                <option value="EDMN">Edmonton Oilers</option>
+                <option value="EDM">Edmonton Oilers</option>
                 <option value="LAK">Los Angeles Kings</option>
                 <option value="MIN">Minnesota Wild</option>
                 <option value="NSH">Nashville Predators</option>
