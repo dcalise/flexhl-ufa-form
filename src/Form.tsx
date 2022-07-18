@@ -238,7 +238,6 @@ export const Form = ({ appState, setAppState }: FormProps) => {
                         onBlur={onBlur}
                         className={`${inputClass} pl-6`}
                         placeholder="0.50M"
-                        type="tel"
                         options={{
                           numeral: true,
                           prefix: "M",
