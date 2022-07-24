@@ -46,7 +46,7 @@ export const Form = ({ appState, setAppState }: FormProps) => {
     resolver: yupResolver(schema),
     defaultValues: {
       team: "",
-      players: [{ name: "", aav: "0", years: null }],
+      players: [{ name: "", url: "", aav: "0", years: null }],
     },
   });
 
@@ -60,6 +60,7 @@ export const Form = ({ appState, setAppState }: FormProps) => {
       gm: formData.gm,
       team: formData.team,
       playerName: player.name,
+      playerUrl: player.url,
       aav: player.aav ? parseFloat(player.aav) : 0,
       years: player.years ? parseFloat(player.years) : 0,
     }));
@@ -214,6 +215,27 @@ export const Form = ({ appState, setAppState }: FormProps) => {
               {errors?.players?.[index]?.name && (
                 <span className="text-red-700">
                   {errors?.players?.[index]?.name?.message}
+                </span>
+              )}
+            </div>
+          </div>
+
+          <div className="flex flex-wrap -mx-3 mb-2">
+            <div className="w-full px-3">
+              <label htmlFor="name" className={labelClass}>
+                Player URL
+              </label>
+              <div className="text-gray-500 mb-4 -mt-2">
+                Please enter an eliteprospects URL
+              </div>
+              <input
+                id="name"
+                className={inputClass}
+                {...register(`players.${index}.url`)}
+              />
+              {errors?.players?.[index]?.url && (
+                <span className="text-red-700">
+                  {errors?.players?.[index]?.url?.message}
                 </span>
               )}
             </div>

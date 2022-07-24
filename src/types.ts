@@ -3,6 +3,7 @@ export type Inputs = {
   team: string;
   players: {
     name: string;
+    url?: string;
     aav: string | null;
     years: string | null;
   }[];

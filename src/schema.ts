@@ -12,6 +12,10 @@ export const schema = yup
           .string()
           .required("Enter a player name")
           .matches(/^[a-z]+(?:\s[a-z]+)+$/, "Enter a valid name"),
+        url: yup
+          .string()
+          .required("Enter a player URL")
+          .url("Enter a valid URL"),
         aav: yup
           .number()
           .typeError("Enter the contract AAV")
@@ -24,8 +28,8 @@ export const schema = yup
           .typeError("Select a contract length")
           .required()
           .min(1, "The minimum contract length is 1 year.")
-          .max(3, "This maximum contract length is 3 years.")
+          .max(3, "This maximum contract length is 3 years."),
       })
-    )
+    ),
   })
   .required();
