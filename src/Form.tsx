@@ -15,8 +15,8 @@ import {
 
 import { PostgrestError } from "@supabase/supabase-js";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { playerList } from "./data/batch8-player-table";
-import { goalieList } from "./data/batch8-goalie-table";
+// import { playerList } from "./data/batch8-player-table";
+// import { goalieList } from "./data/batch8-goalie-table";
 
 import { schema } from "./schema";
 import { Inputs } from "./types";
@@ -178,7 +178,13 @@ export const Form = ({ appState, setAppState }: FormProps) => {
                 Player Name
               </label>
               <div className="mt-1 relative rounded-md shadow-sm">
-                <select
+                <input
+                  id="name"
+                  className={inputClass}
+                  {...register(`players.${index}.name`)}
+                />
+
+                {/* <select
                   id="name"
                   className={inputClass}
                   {...register(`players.${index}.name`)}
@@ -198,12 +204,12 @@ export const Form = ({ appState, setAppState }: FormProps) => {
                       value={player.name}
                     >{`G ${player.name} ${player.OV}ov`}</option>
                   ))}
-                </select>
-                <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
+                </select> */}
+                {/* <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
                   <span className="text-gray-500 sm:text-sm">
                     <FiChevronDown className="text-xl" />
                   </span>
-                </div>
+                </div> */}
               </div>
               {errors?.players?.[index]?.name && (
                 <span className="text-red-700">
