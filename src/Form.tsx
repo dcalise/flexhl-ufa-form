@@ -28,7 +28,7 @@ import { Instructions } from "./components/Instructions";
 interface ChangeEvent<T> extends React.ChangeEvent<T> {
   target: { rawValue: string } & EventTarget & T;
 }
-1;
+
 interface FormProps {
   appState: string;
   setAppState: Function;
