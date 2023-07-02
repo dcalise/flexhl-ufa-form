@@ -8,7 +8,7 @@ export const schema = yup
       .required("Enter the name of the team you are bidding for"),
     players: yup.array().of(
       yup.object().shape({
-        name: yup.string().required("Select a player"),
+        name: yup.string().required("Enter a player name"),
         aav: yup
           .number()
           .typeError("Enter the contract AAV")
@@ -21,8 +21,8 @@ export const schema = yup
           .typeError("Select a contract length")
           .required()
           .min(1, "The minimum contract length is 1 year.")
-          .max(3, "This maximum contract length is 3 years.")
+          .max(3, "This maximum contract length is 3 years."),
       })
-    )
+    ),
   })
   .required();
