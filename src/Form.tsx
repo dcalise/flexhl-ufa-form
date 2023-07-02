@@ -15,8 +15,8 @@ import {
 
 import { PostgrestError } from "@supabase/supabase-js";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { playerList } from "./data/batch8-player-table";
-import { goalieList } from "./data/batch8-goalie-table";
+import { playerList } from "./data/batch1-player-table";
+import { goalieList } from "./data/batch1-goalie-table";
 
 import { schema } from "./schema";
 import { Inputs } from "./types";
@@ -28,7 +28,7 @@ import { Instructions } from "./components/Instructions";
 interface ChangeEvent<T> extends React.ChangeEvent<T> {
   target: { rawValue: string } & EventTarget & T;
 }
-
+1;
 interface FormProps {
   appState: string;
   setAppState: Function;
