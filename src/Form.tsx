@@ -64,7 +64,7 @@ export const Form = ({ appState, setAppState }: FormProps) => {
       years: player.years ? parseFloat(player.years) : 0,
     }));
 
-    const { data, error } = await supabase.from("ufax2022").insert(payload);
+    const { data, error } = await supabase.from("ufax2023").insert(payload);
     if (error) {
       setAppErrors(error);
       setAppState("failed");
