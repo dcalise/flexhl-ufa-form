@@ -15,8 +15,8 @@ import {
 
 import { PostgrestError } from "@supabase/supabase-js";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { playerList } from "./data/batch9-player-table";
-import { goalieList } from "./data/batch9-goalie-table";
+import { playerList } from "./data/batch8-player-table";
+import { goalieList } from "./data/batch8-goalie-table";
 
 import { schema } from "./schema";
 import { Inputs } from "./types";
@@ -32,9 +32,10 @@ interface ChangeEvent<T> extends React.ChangeEvent<T> {
 interface FormProps {
   appState: string;
   setAppState: Function;
+  isOpenBatch: boolean;
 }
 
-export const Form = ({ appState, setAppState }: FormProps) => {
+export const Form = ({ appState, setAppState, isOpenBatch }: FormProps) => {
   const {
     register,
     control,
@@ -178,32 +179,42 @@ export const Form = ({ appState, setAppState }: FormProps) => {
                 Player Name
               </label>
               <div className="mt-1 relative rounded-md shadow-sm">
-                <select
-                  id="name"
-                  className={inputClass}
-                  {...register(`players.${index}.name`)}
-                >
-                  <option value="" disabled>
-                    Select a player
-                  </option>
-                  {playerList.map((player) => (
-                    <option key={player.name} value={player.name}>{`${
-                      player.D ? "D" : "F"
-                    } ${player.name} ${player.OV}ov`}</option>
-                  ))}
+                {isOpenBatch ? (
+                  <input
+                    id="name"
+                    className={inputClass}
+                    {...register(`players.${index}.name`)}
+                  />
+                ) : (
+                  <>
+                    <select
+                      id="name"
+                      className={inputClass}
+                      {...register(`players.${index}.name`)}
+                    >
+                      <option value="" disabled>
+                        Select a player
+                      </option>
+                      {playerList.map((player) => (
+                        <option key={player.name} value={player.name}>{`${
+                          player.D ? "D" : "F"
+                        } ${player.name} ${player.OV}ov`}</option>
+                      ))}
 
-                  {goalieList.map((player) => (
-                    <option
-                      key={player.name}
-                      value={player.name}
-                    >{`G ${player.name} ${player.OV}ov`}</option>
-                  ))}
-                </select>
-                <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
-                  <span className="text-gray-500 sm:text-sm">
-                    <FiChevronDown className="text-xl" />
-                  </span>
-                </div>
+                      {goalieList.map((player) => (
+                        <option
+                          key={player.name}
+                          value={player.name}
+                        >{`G ${player.name} ${player.OV}ov`}</option>
+                      ))}
+                    </select>
+                    <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
+                      <span className="text-gray-500 sm:text-sm">
+                        <FiChevronDown className="text-xl" />
+                      </span>
+                    </div>
+                  </>
+                )}
               </div>
               {errors?.players?.[index]?.name && (
                 <span className="text-red-700">
