@@ -41,7 +41,7 @@ export const Modal: React.FC<Props> = ({
       <div
         id="popup-modal"
         tabIndex={-1}
-        className={`bg-gray-800/50 overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 md:inset-0 h-modal md:h-full justify-center items-center ${
+        className={`bg-gray-800/50 overflow-y-scroll overflow-x-hidden fixed top-0 right-0 left-0 bottom-0 z-50 md:inset-0 h-modal md:h-full justify-center items-center ${
           isOpen ? "flex" : "hidden"
         }`}
         aria-modal="true"
