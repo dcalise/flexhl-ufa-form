@@ -217,7 +217,7 @@ export const playerList = [
   },
   {
     name: "John Carlson",
-    C: "D",
+    C: "",
     L: "",
     R: "",
     D: "X",
@@ -241,7 +241,7 @@ export const playerList = [
   },
   {
     name: "Jake Gardiner",
-    C: "D",
+    C: "",
     L: "",
     R: "",
     D: "X",
@@ -265,7 +265,7 @@ export const playerList = [
   },
   {
     name: "Justin Schultz",
-    C: "D",
+    C: "",
     L: "",
     R: "",
     D: "X",
@@ -289,7 +289,7 @@ export const playerList = [
   },
   {
     name: "Colin Miller",
-    C: "D",
+    C: "",
     L: "",
     R: "",
     D: "X",
@@ -313,7 +313,7 @@ export const playerList = [
   },
   {
     name: "Alec Martinez",
-    C: "D",
+    C: "",
     L: "",
     R: "",
     D: "X",
@@ -337,7 +337,7 @@ export const playerList = [
   },
   {
     name: "Zach Bogosian",
-    C: "D",
+    C: "",
     L: "",
     R: "",
     D: "X",
