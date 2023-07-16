@@ -1,4 +1,4 @@
-import { goalieList } from "./data/batch6-goalie-table";
+import { goalieList } from "./data/batch7-goalie-table";
 import { thClasses, tdClasses, pClasses } from "./styles";
 
 export const GoalieTable = () => {

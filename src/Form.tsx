@@ -15,8 +15,8 @@ import {
 
 import { PostgrestError } from "@supabase/supabase-js";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { playerList } from "./data/batch6-player-table";
-import { goalieList } from "./data/batch6-goalie-table";
+import { playerList } from "./data/batch7-player-table";
+import { goalieList } from "./data/batch7-goalie-table";
 
 import { schema } from "./schema";
 import { Inputs } from "./types";
@@ -318,7 +318,7 @@ export const Form = ({ appState, setAppState }: FormProps) => {
       <div className="p-4">
         <div className="mb-2 text-lg text-center">
           <div className="text-green-800 font-bold">Total salary:</div>$
-          {salaryTotal}M
+          {salaryTotal.toFixed(2)}M
         </div>
 
         {appState === "failed" ? (
@@ -360,7 +360,7 @@ export const Form = ({ appState, setAppState }: FormProps) => {
 
               <div className="mb-2 text-lg text-center">
                 <div className="text-green-800 font-bold">Total salary:</div>$
-                {salaryTotal}M
+                {salaryTotal.toFixed(2)}M
               </div>
               <input className={primaryButtonClass} type="submit" />
             </Modal>
