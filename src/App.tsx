@@ -11,7 +11,7 @@ export default function App() {
     <div className="mx-auto container lg:grid lg:grid-cols-12 lg:gap-4">
       <div className="col-span-12 px-4 py-8">
         <h1 className="text-3xl">Flex Hockey League</h1>
-        <h2 className="text-xl">UFAX Batch 8</h2>
+        <h2 className="text-xl">UFAX Batch 9</h2>
       </div>
       <div className="lg:col-span-5">
         {(appState === "new" || appState === "failed") && (
