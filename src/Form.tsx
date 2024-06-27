@@ -143,7 +143,7 @@ export const Form = ({ appState, setAppState, isOpenBatch }: FormProps) => {
                   Western Conference
                 </option>
                 <option value="ANA">Anaheim Ducks</option>
-                <option value="ARI">Arizona Coyotes</option>
+                <option value="UTA">Utah HC</option>
                 <option value="CGY">Calgary Flames</option>
                 <option value="CHI">Chicago Blackhawks</option>
                 <option value="COL">Colorado Avalanche</option>
