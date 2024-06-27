@@ -16,7 +16,7 @@ export const Instructions = () => (
     </p>
 
     <p className="text-lg my-4">
-      Contracts must range between $500,000 and $12,000,000 and can be a maximum
+      Contracts must range between $500,000 and $13,000,000 and can be a maximum
       of 3 years long. The AAV will be formatted in millions with a maximum of
       two decimal places. For example, <strong>$7.25M is $7,250,000.</strong>
     </p>

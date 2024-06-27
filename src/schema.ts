@@ -14,7 +14,7 @@ export const schema = yup
           .typeError("Enter the contract AAV")
           .required()
           .min(0.5, "The minimum contract AAV is $0.50M")
-          .max(12, "This maximum contract AAV is $12.00M"),
+          .max(13, "This maximum contract AAV is $13.00M"),
 
         years: yup
           .number()
