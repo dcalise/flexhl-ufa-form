@@ -1,4 +1,4 @@
-import { playerList } from "./data/batch2-player-table";
+import { playerList } from "./data/batch3-player-table";
 import { thClasses, tdClasses, pClasses } from "./styles";
 
 export const PlayerTable = () => {
@@ -36,9 +36,7 @@ export const PlayerTable = () => {
                   <p className={pClasses}>{player.name}</p>
                 </td>
                 <td className={tdClasses}>
-                  <p className={pClasses}>
-                    {player.C || player.L || player.R ? "F" : "D"}
-                  </p>
+                  <p className={pClasses}>{player.pos === "F" ? "F" : "D"}</p>
                 </td>
                 <td className={tdClasses}>
                   <p className={pClasses}>{player.CK}</p>
