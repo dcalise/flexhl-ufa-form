@@ -15,8 +15,8 @@ import {
 
 import { PostgrestError } from "@supabase/supabase-js";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { playerList } from "./data/batch6-player-table";
-import { goalieList } from "./data/batch6-goalie-table";
+import { playerList } from "./data/batch7-player-table";
+import { goalieList } from "./data/batch7-goalie-table";
 
 import { schema } from "./schema";
 import { Inputs } from "./types";
