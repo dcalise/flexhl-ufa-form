@@ -15,8 +15,8 @@ import {
 
 import { PostgrestError } from "@supabase/supabase-js";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { playerList } from "./data/batch10-player-table";
-import { goalieList } from "./data/batch10-goalie-table";
+import { playerList } from "./data/batch1-player-table";
+import { goalieList } from "./data/batch1-goalie-table";
 
 import { schema } from "./schema";
 import { Inputs } from "./types";
@@ -65,7 +65,9 @@ export const Form = ({ appState, setAppState, isOpenBatch }: FormProps) => {
       years: player.years ? parseFloat(player.years) : 0,
     }));
 
-    const { data, error } = await supabase.from("ufax2024").insert(payload);
+    const { data, error } = await supabase
+      .from("ufax2025_batch_1")
+      .insert(payload);
     if (error) {
       setAppErrors(error);
       setAppState("failed");
