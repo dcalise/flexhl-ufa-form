@@ -1,13 +1,13 @@
 import { useState } from "react";
 
-// import { PlayerTable } from "./PlayerTable";
-// import { GoalieTable } from "./GoalieTable";
+import { PlayerTable } from "./PlayerTable";
+import { GoalieTable } from "./GoalieTable";
 import { Form } from "./Form";
 
 export default function App() {
   const [appState, setAppState] = useState("new");
 
-  const isOpenBatch = true;
+  const isOpenBatch = false;
 
   return (
     <div className="mx-auto container lg:grid lg:grid-cols-12 lg:gap-4">
@@ -32,11 +32,11 @@ export default function App() {
           </div>
         )}
       </div>
-      {/* <div className="lg:col-span-7">
+      <div className="lg:col-span-7">
         <PlayerTable />
         <br />
         <GoalieTable />
-      </div> */}
+      </div>
       <div className="col-span-12 py-4 text-gray-400 text-right text-xs">
         v{process.env.REACT_APP_VERSION}
       </div>
