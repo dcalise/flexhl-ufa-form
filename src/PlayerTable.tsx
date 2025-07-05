@@ -1,4 +1,4 @@
-import { playerList } from "./data/batch1-player-table";
+import { playerList } from "./data/batch2-player-table";
 import { thClasses, tdClasses, pClasses } from "./styles";
 
 export const PlayerTable = () => {
