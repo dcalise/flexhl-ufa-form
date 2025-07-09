@@ -7,6 +7,7 @@ import {
   Controller,
 } from "react-hook-form";
 import {
+  disabledPrimaryButtonClass,
   inputClass,
   labelClass,
   primaryButtonClass,
@@ -55,8 +56,11 @@ export const Form = ({ appState, setAppState, isOpenBatch }: FormProps) => {
     control,
     name: "players",
   });
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [appErrors, setAppErrors] = useState<PostgrestError | null>(null);
   const onSubmit: SubmitHandler<Inputs> = async (formData) => {
+    setIsSubmitting(true);
     const payload = formData.players.map((player) => ({
       gm: formData.gm,
       team: formData.team,
@@ -76,6 +80,7 @@ export const Form = ({ appState, setAppState, isOpenBatch }: FormProps) => {
       setAppState("success");
       window.scrollTo(0, 0);
     }
+    setIsSubmitting(false);
   };
 
   const [salaryTotal, setSalaryTotal] = useState(0);
@@ -361,7 +366,7 @@ export const Form = ({ appState, setAppState, isOpenBatch }: FormProps) => {
               <table className="w-3/4 mx-auto text-sm text-left my-6">
                 <tbody>
                   {players.map(({ name, aav, years }) => (
-                    <tr className="bg-white">
+                    <tr className="bg-white" key={name}>
                       <td className="py-1 px-6">{name}</td>
                       <td className="py-1 px-6 text-right">
                         ${aav}M/{years}y
@@ -375,7 +380,17 @@ export const Form = ({ appState, setAppState, isOpenBatch }: FormProps) => {
                 <div className="text-green-800 font-bold">Total salary:</div>$
                 {salaryTotal.toFixed(2)}M
               </div>
-              <input className={primaryButtonClass} type="submit" />
+              <button
+                disabled={isSubmitting || appState === "success"}
+                className={
+                  isSubmitting || appState === "success"
+                    ? disabledPrimaryButtonClass
+                    : primaryButtonClass
+                }
+                type="submit"
+              >
+                Confirm
+              </button>
             </Modal>
           </div>
         )}
