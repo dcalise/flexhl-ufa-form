@@ -16,8 +16,8 @@ import {
 
 import { PostgrestError } from "@supabase/supabase-js";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { playerList } from "./data/batch3-player-table";
-import { goalieList } from "./data/batch3-goalie-table";
+import { playerList } from "./data/batch4-player-table";
+import { goalieList } from "./data/batch4-goalie-table";
 
 import { schema } from "./schema";
 import { Inputs } from "./types";
@@ -70,7 +70,7 @@ export const Form = ({ appState, setAppState, isOpenBatch }: FormProps) => {
     }));
 
     const { data, error } = await supabase
-      .from("ufax2025_batch_3")
+      .from("ufax2025_batch_4")
       .insert(payload);
     if (error) {
       setAppErrors(error);
