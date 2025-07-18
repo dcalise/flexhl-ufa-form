@@ -148,7 +148,7 @@ export const playerList = [
   },
   {
     name: "Brent Solomon",
-    pos: "RW",
+    pos: "F",
     CK: 45,
     FG: 45,
     DI: 45,
