@@ -127,7 +127,7 @@ export const playerList = [
   },
   {
     name: "Tommy Lafreniere",
-    pos: "C",
+    pos: "F",
     CK: 45,
     FG: 45,
     DI: 45,
