@@ -1,0 +1,20 @@
+export const goalieList = [
+  {
+    name: "Trenton Bennett",
+    SK: 55,
+    DU: 55,
+    EN: 55,
+    SZ: 55,
+    AG: 55,
+    RB: 55,
+    SC: 55,
+    HS: 55,
+    RT: 55,
+    PH: 55,
+    PS: 55,
+    EX: 55,
+    LD: 55,
+    OV: 54,
+    AGE: 19,
+  },
+];
