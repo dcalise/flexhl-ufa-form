@@ -70,7 +70,7 @@ export const Form = ({ appState, setAppState, isOpenBatch }: FormProps) => {
     }));
 
     const { data, error } = await supabase
-      .from("ufax2025_batch_10")
+      .from("ufax2025_batch_open")
       .insert(payload);
     if (error) {
       setAppErrors(error);

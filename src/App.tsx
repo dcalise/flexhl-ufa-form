@@ -7,13 +7,13 @@ import { Form } from "./Form";
 export default function App() {
   const [appState, setAppState] = useState("new");
 
-  const isOpenBatch = false;
+  const isOpenBatch = true;
 
   return (
     <div className="mx-auto container lg:grid lg:grid-cols-12 lg:gap-4">
       <div className="col-span-12 px-4 py-8">
         <h1 className="text-3xl">Flex Hockey League</h1>
-        <h2 className="text-xl">2025 UFAX Batch 10</h2>
+        <h2 className="text-xl">2025 UFAX Open Batch</h2>
       </div>
       <div className="lg:col-span-5">
         {(appState === "new" || appState === "failed") && (
@@ -32,11 +32,13 @@ export default function App() {
           </div>
         )}
       </div>
-      <div className="lg:col-span-7">
-        <PlayerTable />
-        <br />
-        <GoalieTable />
-      </div>
+      {isOpenBatch || (
+        <div className="lg:col-span-7">
+          <PlayerTable />
+          <br />
+          <GoalieTable />
+        </div>
+      )}
       <div className="col-span-12 py-4 text-gray-400 text-right text-xs">
         v{process.env.REACT_APP_VERSION}
       </div>
